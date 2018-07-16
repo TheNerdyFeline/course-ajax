@@ -28,7 +28,6 @@
 
      function addImage(images) {
       let htmlContent;
-      console.log(images.results[0]);
       if(images && images.results && images.results[0]) {
         const firstImg = images.results[0];
         htmlContent = `<figure>
