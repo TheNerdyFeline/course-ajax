@@ -54,5 +54,5 @@
       }
       responseContainer.insertAdjacentHTML('beforeend', `<ul>${artHtml.join('')}</ul>`);
     };
-    });
+  });
 })();

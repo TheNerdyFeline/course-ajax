@@ -15,6 +15,8 @@
         }
       }).then(resp => resp.json()).then(addImage).catch(e => console.log(e));
 
+      fetch('http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + searchedForText + '&api-key=ff9b67cdcef449528c40fe593b7af9bc').then(resp => resp.json()).then(addArticles).catch(e => console.log(e));
+
       function addImage(images) {
         let htmlContent;
         if(images && images.results && images.results[0]) {
@@ -28,5 +30,20 @@
         }
         responseContainer.insertAdjacentHTML('afterbegin', htmlContent);   
       };
+      
+      function addArticles(artData) {
+        let artHtml;
+        if(artData) {
+          artHtml = artData.response.docs.map(article => `<li>
+            <h2><a href="${article.web_url}">${article.headline.main}</a></h2>
+            <p>${article.snippet}</p>
+          </li>`
+          );
+        } else {
+          artHtml = '<div class="error">No Articles Found</div>';
+        }
+        responseContainer.insertAdjacentHTML('beforeend', `<ul>${artHtml.join('')}</ul>`);
+      };
+;
     });
 })();
